@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # Downloads the game's Managed assemblies, the Modding API and the mods listed
+      # in ModDependencies.txt into API/ (the equivalent of hollow_knight_Data/Managed)
+      - uses: BadMagic100/setup-hk@v1
+        with:
+          apiPath: API/
+          dependencyFilePath: ModDependencies.txt
+
+      - name: Build
+        run: >
+          dotnet build GodhomeQoL.csproj -c Release
+          -p:HollowKnightRefs=${{ github.workspace }}/API/
+          -p:ManagedModsDir=${{ github.workspace }}/out/managed/
+          -p:ExportDir=${{ github.workspace }}/out/export
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GodhomeQoL
+          path: out/export/GodhomeQoL/
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: GodhomeQoL
+          path: dist
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/GodhomeQoL.zip
+            dist/GodhomeQoL.dll
+            dist/SHA.txt
