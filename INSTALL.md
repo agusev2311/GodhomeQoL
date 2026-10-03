@@ -1,5 +1,7 @@
 # Installing GodhomeQoL
 
+[Русская версия](INSTALL.ru.md)
+
 GodhomeQoL is a [Hollow Knight Modding API](https://github.com/hk-modding/api) mod. It needs three library mods: **Satchel**, **Osmi** and **Vasi**.
 
 > **Fork note.** Lumafly (the mod manager) installs the *official* GodhomeQoL from [NightFuryoOo/GodhomeQoL](https://github.com/NightFuryoOo/GodhomeQoL). Builds from this repository have to be installed by hand, as described below.

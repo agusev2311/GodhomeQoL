@@ -12,7 +12,7 @@ This mod emphasizes stability and predictability.
 
 Every feature is opt-in: on a fresh install (and once after updating to this version) all modules are disabled, so the mod does not change the game until you enable something yourself.
 
-See [INSTALL.md](INSTALL.md) for installation and build instructions.
+See [INSTALL.md](INSTALL.md) for installation and build instructions ([на русском](INSTALL.ru.md)).
 
 ## Known issues
 
