@@ -16,7 +16,7 @@ public sealed class QuickMenuMasterSettings
     public bool BossChallengeSavedAddSoul { get; set; }
     public bool BossChallengeSavedForceArriveAnimation { get; set; }
 
-    public bool QolEnabled { get; set; } = true;
+    public bool QolEnabled { get; set; } = false;
     public bool QolHasSnapshot { get; set; }
     public bool QolSavedFastDreamWarp { get; set; }
     public bool QolSavedShortDeath { get; set; }
@@ -28,7 +28,7 @@ public sealed class QuickMenuMasterSettings
     public bool QolSavedInvincibleIndicator { get; set; }
     public bool QolSavedScreenShake { get; set; }
 
-    public bool MenuAnimEnabled { get; set; } = true;
+    public bool MenuAnimEnabled { get; set; } = false;
     public bool MenuAnimHasSnapshot { get; set; }
     public bool MenuAnimSavedDoorDefaultBegin { get; set; }
     public bool MenuAnimSavedFasterLoads { get; set; }
@@ -38,7 +38,7 @@ public sealed class QuickMenuMasterSettings
     public bool MenuAnimSavedAllowSkipping { get; set; }
     public bool MenuAnimSavedSkipWithoutPrompt { get; set; }
 
-    public bool BossAnimEnabled { get; set; } = true;
+    public bool BossAnimEnabled { get; set; } = false;
     public bool BossAnimHasSnapshot { get; set; }
     public bool BossAnimSavedHallOfGods { get; set; }
     public bool BossAnimSavedAbsoluteRadiance { get; set; }

@@ -41,7 +41,7 @@ namespace GodhomeQoL
         }
 
         // Everything is opt-in: nothing may stay enabled unless the player turned it on after this reset
-        private const int CurrentDefaultsResetVersion = 1;
+        private const int CurrentDefaultsResetVersion = 2;
 
         private static void ResetEverythingToDisabled()
         {

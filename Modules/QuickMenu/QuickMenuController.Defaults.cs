@@ -173,11 +173,11 @@ public sealed partial class QuickMenu : Module
 
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossChallengeEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossChallengeHasSnapshot = false;
-            GodhomeQoL.GlobalSettings.QuickMenuMasters.QolEnabled = true;
+            GodhomeQoL.GlobalSettings.QuickMenuMasters.QolEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.QolHasSnapshot = false;
-            GodhomeQoL.GlobalSettings.QuickMenuMasters.MenuAnimEnabled = true;
+            GodhomeQoL.GlobalSettings.QuickMenuMasters.MenuAnimEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.MenuAnimHasSnapshot = false;
-            GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimEnabled = true;
+            GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimHasSnapshot = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimSavedHallOfGods = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.RandomPantheonsEnabled = false;

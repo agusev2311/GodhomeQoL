@@ -138,7 +138,7 @@ public sealed partial class QuickMenu : Module
 
         private void OnQolResetDefaultsClicked()
         {
-            qolMasterEnabled = true;
+            qolMasterEnabled = false;
             qolMasterHasSnapshot = false;
             waitingForFastDreamWarpRebind = false;
             fastDreamWarpPrevKeyRaw = string.Empty;
@@ -185,7 +185,7 @@ public sealed partial class QuickMenu : Module
 
         private void OnMenuAnimationResetDefaultsClicked()
         {
-            menuAnimMasterEnabled = true;
+            menuAnimMasterEnabled = false;
             menuAnimMasterHasSnapshot = false;
             SetDoorDefaultBeginEnabled(false);
             SetFasterLoadsEnabled(false);
@@ -222,7 +222,7 @@ public sealed partial class QuickMenu : Module
 
         private void OnBossAnimationResetDefaultsClicked()
         {
-            bossAnimMasterEnabled = true;
+            bossAnimMasterEnabled = false;
             bossAnimMasterHasSnapshot = false;
             Modules.QoL.SkipCutscenes.HallOfGodsStatues = false;
             Modules.QoL.SkipCutscenes.AbsoluteRadiance = false;
