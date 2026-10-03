@@ -11,5 +11,7 @@ namespace GodhomeQoL.Settings
         public string GearSwitcherLastPreset { get; set; } = "FullGear";
 
         public Dictionary<string, bool>? PerSaveModules { get; set; }
+
+        public int DefaultsResetVersion { get; set; }
     }
 }

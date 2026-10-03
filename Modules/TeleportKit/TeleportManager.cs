@@ -18,6 +18,7 @@ internal sealed class TeleportManager : IDisposable
     {
         this.mod = mod;
         ModHooks.BeforeSceneLoadHook += OnSceneChange;
+        On.BossChallengeUI.Setup += OnBossChallengeUISetup;
     }
 
     internal bool IsBusy => isBusy;
@@ -25,6 +26,7 @@ internal sealed class TeleportManager : IDisposable
     public void Dispose()
     {
         ModHooks.BeforeSceneLoadHook -= OnSceneChange;
+        On.BossChallengeUI.Setup -= OnBossChallengeUISetup;
         isBusy = false;
         pendingUiReset = false;
     }
@@ -282,6 +284,20 @@ internal sealed class TeleportManager : IDisposable
         GameManager.instance.actorSnapshotUnpaused.TransitionTo(0f);
         GameManager.instance.ui.AudioGoToGameplay(0.2f);
         PlayerData.instance.atBench = false;
+    }
+
+    private static void OnBossChallengeUISetup(
+        On.BossChallengeUI.orig_Setup orig,
+        BossChallengeUI self,
+        BossStatue statue,
+        string nameSheet,
+        string nameKey,
+        string descSheet,
+        string descKey
+    )
+    {
+        orig(self, statue, nameSheet, nameKey, descSheet, descKey);
+        TryResetUiInput(null);
     }
 
     internal static void TryResetUiInput(GameObject? preferredSelection)

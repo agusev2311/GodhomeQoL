@@ -29,15 +29,55 @@ namespace GodhomeQoL
             if (isFirstRun)
             {
                 Modules.Tools.QuickMenu.ApplyInitialDefaults();
+                GlobalSettings.DefaultsResetVersion = CurrentDefaultsResetVersion;
+                SaveGlobalSettingsSafe();
+            }
+            else if (GlobalSettings.DefaultsResetVersion < CurrentDefaultsResetVersion)
+            {
+                ResetEverythingToDisabled();
+                GlobalSettings.DefaultsResetVersion = CurrentDefaultsResetVersion;
                 SaveGlobalSettingsSafe();
             }
         }
-        public GlobalSettings OnSaveGlobal() => GlobalSettings;
+
+        // Everything is opt-in: nothing may stay enabled unless the player turned it on after this reset
+        private const int CurrentDefaultsResetVersion = 1;
+
+        private static void ResetEverythingToDisabled()
+        {
+            foreach (string name in GlobalSettings.Modules.Keys.ToList())
+            {
+                if (ModuleManager.TryGetModule(name, out Module? module))
+                {
+                    module.Enabled = false;
+                }
+                else
+                {
+                    GlobalSettings.Modules[name] = false;
+                }
+            }
+
+            Modules.Tools.QuickMenu.ApplyInitialDefaults();
+            global::GodhomeQoL.Utils.Logger.Log("Reset all modules to disabled (defaults migration)");
+        }
+
+        public GlobalSettings OnSaveGlobal()
+        {
+            GlobalSettings.DefaultsResetVersion = CurrentDefaultsResetVersion;
+            return GlobalSettings;
+        }
 
         public static LocalSettings LocalSettings { get; private set; } = new();
         public void OnLoadLocal(LocalSettings s)
         {
             LocalSettings = s;
+            if (s.DefaultsResetVersion < CurrentDefaultsResetVersion)
+            {
+                s.ResetFieldsToDefaults();
+                s.PerSaveModules = null;
+                s.DefaultsResetVersion = CurrentDefaultsResetVersion;
+            }
+
             ApplyPerSaveModuleStates(s.PerSaveModules);
             if (GlobalSettings?.GearSwitcher != null
                 && string.IsNullOrWhiteSpace(GlobalSettings.GearSwitcher.LastPreset)
@@ -55,6 +95,7 @@ namespace GodhomeQoL
             }
 
             LocalSettings.PerSaveModules = CapturePerSaveModuleStates();
+            LocalSettings.DefaultsResetVersion = CurrentDefaultsResetVersion;
             return LocalSettings;
         }
 

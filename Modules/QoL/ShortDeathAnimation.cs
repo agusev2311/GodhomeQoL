@@ -13,7 +13,7 @@ public sealed class ShortDeathAnimation : Module {
 		public bool Patched { get; set; }
 	}
 
-	public override bool DefaultEnabled => true;
+	public override bool DefaultEnabled => false;
 
 	private static readonly Dictionary<int, DeathFsmSnapshot> deathSnapshots = new();
 	private static bool timeScaleOverrideInFlight;

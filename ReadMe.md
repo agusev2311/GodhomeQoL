@@ -9,3 +9,5 @@ GodhomeQoL provides a carefully selected set of features **built upon** and insp
 *   **ShowHPOnDeath** by FIN: [https://github.com/F1NS3N/ShowHPOnDeath](https://github.com/F1NS3N)
 
 This mod emphasizes stability and predictability.
+
+Every feature is opt-in: on a fresh install (and once after updating to this version) all modules are disabled, so the mod does not change the game until you enable something yourself.

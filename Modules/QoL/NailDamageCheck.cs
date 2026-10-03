@@ -11,15 +11,40 @@ public sealed class NailDamageCheck : Module
     private static NailDamageCheckDisplay? display;
     private static float hideAtTime = -1f;
 
+    private static bool moduleLoaded;
+    private static bool hooksInstalled;
+
     private protected override void Load()
     {
-        ModHooks.HeroUpdateHook += OnHeroUpdate;
+        moduleLoaded = true;
+        SyncHooks();
     }
 
     private protected override void Unload()
     {
-        ModHooks.HeroUpdateHook -= OnHeroUpdate;
+        moduleLoaded = false;
+        SyncHooks();
         DestroyDisplay();
+    }
+
+    // Only listen for input while a key is actually bound
+    private static void SyncHooks()
+    {
+        bool shouldInstall = moduleLoaded && GetKey() != KeyCode.None;
+        if (shouldInstall == hooksInstalled)
+        {
+            return;
+        }
+
+        hooksInstalled = shouldInstall;
+        if (shouldInstall)
+        {
+            ModHooks.HeroUpdateHook += OnHeroUpdate;
+        }
+        else
+        {
+            ModHooks.HeroUpdateHook -= OnHeroUpdate;
+        }
     }
 
     internal static string GetKeybind() => GodhomeQoL.GlobalSettings.NailDamageCheckKeybind ?? string.Empty;
@@ -28,6 +53,7 @@ public sealed class NailDamageCheck : Module
     {
         GodhomeQoL.GlobalSettings.NailDamageCheckKeybind = value ?? string.Empty;
         GodhomeQoL.SaveGlobalSettingsSafe();
+        SyncHooks();
     }
 
     internal static KeyCode GetKey()

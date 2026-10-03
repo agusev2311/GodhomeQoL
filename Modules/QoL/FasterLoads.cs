@@ -12,7 +12,7 @@ public sealed class FasterLoads : Module
 
     private ILHook? hook;
 
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     public override ToggleableLevel ToggleableLevel => ToggleableLevel.ChangeScene;
 

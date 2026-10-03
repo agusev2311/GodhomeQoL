@@ -5,7 +5,7 @@ namespace GodhomeQoL.Modules.QoL;
 
 public sealed class FastText : Module
 {
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     public override ToggleableLevel ToggleableLevel => ToggleableLevel.ChangeScene;
 

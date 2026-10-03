@@ -4,7 +4,7 @@ public sealed class UnlockRadiance : Module
 {
     private const string SceneName = "Radiance Boss Scene";
 
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     public override ToggleableLevel ToggleableLevel => ToggleableLevel.ReloadSave;
 

@@ -5,7 +5,7 @@ namespace GodhomeQoL.Modules.Misc;
 
 public sealed class PerformanceProbe : Module
 {
-    [GlobalSetting] public static bool PerformanceProbeEnabled = true;
+    [GlobalSetting] public static bool PerformanceProbeEnabled = false;
     [GlobalSetting] public static int PerformanceProbeDurationSeconds = 20;
     [GlobalSetting] public static bool PerformanceProbeVerbose = false;
 
@@ -33,8 +33,17 @@ public sealed class PerformanceProbe : Module
     private static int missingGameManagerStackSamples;
     private static int missingHeroStackSamples;
 
+    private static bool hooksInstalled;
+
     private protected override void Load()
     {
+        // Diagnostics only: stay completely detached unless explicitly enabled
+        if (!PerformanceProbeEnabled)
+        {
+            return;
+        }
+
+        hooksInstalled = true;
         USceneManager.activeSceneChanged += OnSceneChanged;
         ModHooks.HeroUpdateHook += OnHeroUpdate;
         On.BossSceneController.Start += OnBossSceneStart;
@@ -50,6 +59,12 @@ public sealed class PerformanceProbe : Module
 
     private protected override void Unload()
     {
+        if (!hooksInstalled)
+        {
+            return;
+        }
+
+        hooksInstalled = false;
         USceneManager.activeSceneChanged -= OnSceneChanged;
         ModHooks.HeroUpdateHook -= OnHeroUpdate;
         On.BossSceneController.Start -= OnBossSceneStart;

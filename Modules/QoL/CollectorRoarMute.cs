@@ -10,7 +10,7 @@ public sealed class CollectorRoarMute : Module
 {
     private static AudioClip? customClip;
 
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     private Hook? hookPlay;
     private Hook? hookPlayDelayed;

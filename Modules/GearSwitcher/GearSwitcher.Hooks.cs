@@ -11,30 +11,59 @@ namespace GodhomeQoL.Modules.Tools;
 
 public sealed partial class GearSwitcher : Module
 {
+    private static bool moduleLoaded;
+    private static bool runtimeHooksInstalled;
+
     private protected override void Load()
     {
         coroutineGeneration++;
-        On.HeroController.Start += OnHeroStart;
-        On.HeroController.CharmUpdate += OnCharmUpdate;
-        On.InputHandler.OnGUI += OnInputHandlerOnGUI;
-        IL.HeroController.SoulGain += OnSoulGainIL;
-        On.HealthManager.TakeDamage += OnEnemyDamaged;
-        USceneManager.activeSceneChanged += OnSceneChanged;
-        On.BossDoorChallengeUI.HideSequence += OnBossDoorHideSequence;
+        moduleLoaded = true;
+        SyncRuntimeHooks();
     }
 
     private protected override void Unload()
     {
-        RestoreRuntimeState(disableGlobalToggle: false);
-        On.HeroController.Start -= OnHeroStart;
-        On.HeroController.CharmUpdate -= OnCharmUpdate;
-        On.InputHandler.OnGUI -= OnInputHandlerOnGUI;
-        IL.HeroController.SoulGain -= OnSoulGainIL;
-        On.HealthManager.TakeDamage -= OnEnemyDamaged;
-        USceneManager.activeSceneChanged -= OnSceneChanged;
-        On.BossDoorChallengeUI.HideSequence -= OnBossDoorHideSequence;
+        if (runtimeHooksInstalled)
+        {
+            RestoreRuntimeState(disableGlobalToggle: false);
+        }
+
+        moduleLoaded = false;
+        SyncRuntimeHooks();
         savedNailAttackBindings.Clear();
         hasSavedNailAttackBindings = false;
+    }
+
+    // The game is only hooked while Gear Switcher is switched on; when off it must not touch anything
+    private static void SyncRuntimeHooks()
+    {
+        bool shouldInstall = moduleLoaded && Settings.Enabled;
+        if (shouldInstall == runtimeHooksInstalled)
+        {
+            return;
+        }
+
+        runtimeHooksInstalled = shouldInstall;
+        if (shouldInstall)
+        {
+            On.HeroController.Start += OnHeroStart;
+            On.HeroController.CharmUpdate += OnCharmUpdate;
+            On.InputHandler.OnGUI += OnInputHandlerOnGUI;
+            IL.HeroController.SoulGain += OnSoulGainIL;
+            On.HealthManager.TakeDamage += OnEnemyDamaged;
+            USceneManager.activeSceneChanged += OnSceneChanged;
+            On.BossDoorChallengeUI.HideSequence += OnBossDoorHideSequence;
+        }
+        else
+        {
+            On.HeroController.Start -= OnHeroStart;
+            On.HeroController.CharmUpdate -= OnCharmUpdate;
+            On.InputHandler.OnGUI -= OnInputHandlerOnGUI;
+            IL.HeroController.SoulGain -= OnSoulGainIL;
+            On.HealthManager.TakeDamage -= OnEnemyDamaged;
+            USceneManager.activeSceneChanged -= OnSceneChanged;
+            On.BossDoorChallengeUI.HideSequence -= OnBossDoorHideSequence;
+        }
     }
 
     private static void OnHeroStart(On.HeroController.orig_Start orig, HeroController self)

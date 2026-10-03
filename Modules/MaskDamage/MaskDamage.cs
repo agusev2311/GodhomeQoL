@@ -14,10 +14,35 @@ public sealed class MaskDamage : Module
 
     private static MaskDamageDisplay? display;
 
+    private static bool moduleLoaded;
+    private static bool hooksInstalled;
+
+    // Hooks exist only while the feature is switched on
+    private static void SyncHooks()
+    {
+        bool shouldInstall = moduleLoaded && Settings.Enabled;
+        if (shouldInstall == hooksInstalled)
+        {
+            return;
+        }
+
+        hooksInstalled = shouldInstall;
+        if (shouldInstall)
+        {
+            ModHooks.AfterTakeDamageHook += OnAfterTakeDamage;
+            ModHooks.HeroUpdateHook += OnHeroUpdate;
+        }
+        else
+        {
+            ModHooks.AfterTakeDamageHook -= OnAfterTakeDamage;
+            ModHooks.HeroUpdateHook -= OnHeroUpdate;
+        }
+    }
+
     private protected override void Load()
     {
-        ModHooks.AfterTakeDamageHook += OnAfterTakeDamage;
-        ModHooks.HeroUpdateHook += OnHeroUpdate;
+        moduleLoaded = true;
+        SyncHooks();
 
         if (Settings.Enabled && Settings.ShowUI)
         {
@@ -28,8 +53,8 @@ public sealed class MaskDamage : Module
 
     private protected override void Unload()
     {
-        ModHooks.AfterTakeDamageHook -= OnAfterTakeDamage;
-        ModHooks.HeroUpdateHook -= OnHeroUpdate;
+        moduleLoaded = false;
+        SyncHooks();
         DestroyDisplay();
     }
 
@@ -42,6 +67,7 @@ public sealed class MaskDamage : Module
     {
         Settings.Enabled = value;
         GodhomeQoL.SaveGlobalSettingsSafe();
+        SyncHooks();
 
         if (!value)
         {

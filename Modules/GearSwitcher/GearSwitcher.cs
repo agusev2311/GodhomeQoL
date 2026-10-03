@@ -80,6 +80,7 @@ public sealed partial class GearSwitcher : Module
                 }
 
                 Settings.Enabled = value;
+                SyncRuntimeHooks();
                 GodhomeQoL.SaveGlobalSettingsSafe();
             }
         }

@@ -52,28 +52,55 @@ public sealed class FreezeHitboxes : Module
         {
             EndFreeze();
         }
+
+        SyncHooks();
     }
+
+    private static bool moduleLoaded;
+    private static bool hooksInstalled;
 
     private protected override void Load()
     {
-        On.GameManager.SetTimeScale_float += OnGameManagerSetTimeScale;
-        ModHooks.TakeHealthHook += OnTakeHealthPreDamage;
-        ModHooks.AfterTakeDamageHook += OnAfterTakeDamage;
-        ModHooks.HeroUpdateHook += OnHeroUpdate;
-        On.InputHandler.OnGUI += OnInputHandlerOnGUI;
-        On.HeroController.Die += OnHeroDie;
+        moduleLoaded = true;
+        SyncHooks();
     }
 
     private protected override void Unload()
     {
-        On.GameManager.SetTimeScale_float -= OnGameManagerSetTimeScale;
-        ModHooks.TakeHealthHook -= OnTakeHealthPreDamage;
-        ModHooks.AfterTakeDamageHook -= OnAfterTakeDamage;
-        ModHooks.HeroUpdateHook -= OnHeroUpdate;
-        On.InputHandler.OnGUI -= OnInputHandlerOnGUI;
-        On.HeroController.Die -= OnHeroDie;
+        moduleLoaded = false;
+        SyncHooks();
         ResetPendingHitState();
         EndFreeze();
+    }
+
+    // Hooks exist only while the feature is switched on
+    private static void SyncHooks()
+    {
+        bool shouldInstall = moduleLoaded && Settings.Enabled;
+        if (shouldInstall == hooksInstalled)
+        {
+            return;
+        }
+
+        hooksInstalled = shouldInstall;
+        if (shouldInstall)
+        {
+            On.GameManager.SetTimeScale_float += OnGameManagerSetTimeScale;
+            ModHooks.TakeHealthHook += OnTakeHealthPreDamage;
+            ModHooks.AfterTakeDamageHook += OnAfterTakeDamage;
+            ModHooks.HeroUpdateHook += OnHeroUpdate;
+            On.InputHandler.OnGUI += OnInputHandlerOnGUI;
+            On.HeroController.Die += OnHeroDie;
+        }
+        else
+        {
+            On.GameManager.SetTimeScale_float -= OnGameManagerSetTimeScale;
+            ModHooks.TakeHealthHook -= OnTakeHealthPreDamage;
+            ModHooks.AfterTakeDamageHook -= OnAfterTakeDamage;
+            ModHooks.HeroUpdateHook -= OnHeroUpdate;
+            On.InputHandler.OnGUI -= OnInputHandlerOnGUI;
+            On.HeroController.Die -= OnHeroDie;
+        }
     }
 
     private static int OnTakeHealthPreDamage(int damageAmount)
