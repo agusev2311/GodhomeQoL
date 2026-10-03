@@ -6,8 +6,8 @@ Hollow Knight mod (Modding API 1.5, .NET Framework 4.7.2, C# latest) for Godhome
 
 The project references the game's DLLs (`$(HollowKnightRefs)` = a modded `hollow_knight_Data/Managed` with `Mods/Satchel`, `Mods/Osmi`, `Mods/Vasi`). They are not in the repo.
 
-- CI: `.github/workflows/build.yml` (setup-hk downloads the refs; deps in `ModDependencies.txt`).
-- Locally without the game, reproduce CI: get `https://files.hk-modding.org/managed-linux.zip`, the Modding API windows zip from `hk-modding/modlinks` `ApiLinks.xml`, and Satchel/Osmi/Vasi from `ModLinks.xml` into one folder, then:
+- CI: `.github/workflows/build.yml` (setup-hk downloads the refs; deps in `ModDependencies.txt`). It must run on `windows-latest`: setup-hk fetches the platform's `Assembly-CSharp`, and the Linux one lacks Windows-only types (GOG, XInput) the mod references.
+- Locally without the game, reproduce CI: get `https://files.hk-modding.org/managed-linux.zip`, the Modding API **windows** zip (not linux, see above) from `hk-modding/modlinks` `ApiLinks.xml`, and Satchel/Osmi/Vasi from `ModLinks.xml` into one folder, then:
   `dotnet build GodhomeQoL.csproj -c Release -p:HollowKnightRefs=<dir>/ -p:ManagedModsDir=<tmp>/managed/ -p:ExportDir=<tmp>/export`
   Always override `ManagedModsDir`/`ExportDir`: the `CopyMod` target otherwise writes into the game folder and `C:\Users\User\Documents`.
 - Expected warnings: unresolved `GalaxyCSharp`, `UnityEngine.ARModule` (unused).
