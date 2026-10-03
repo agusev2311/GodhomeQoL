@@ -1,27 +1,29 @@
 ﻿namespace GodhomeQoL.Modules.BossChallenge;
 
-internal sealed class HalveDamage : Module {
-	internal static event Func<bool> ShouldFunctionHook = null!;
+// Hooks are installed only while at least one HalveDamage* module is enabled
+internal static class HalveDamage {
+	private static readonly List<Func<bool>> predicates = [];
 
-	public override bool Hidden => true;
-	public override bool AlwaysEnabled => true;
+	internal static void AddPredicate(Func<bool> predicate) {
+		if (predicates.Count == 0) {
+			ModHooks.TakeHealthHook += MakeDamageHalved;
+			On.HeroController.StartRecoil += FixTakeHitEffect;
+		}
 
-	private protected override void Load() {
-		ModHooks.TakeHealthHook += MakeDamageHalved;
-		On.HeroController.StartRecoil += FixTakeHitEffect;
+		predicates.Add(predicate);
 	}
 
-	private protected override void Unload() {
+	internal static void RemovePredicate(Func<bool> predicate) {
+		if (!predicates.Remove(predicate) || predicates.Count > 0) {
+			return;
+		}
+
 		ModHooks.TakeHealthHook -= MakeDamageHalved;
 		On.HeroController.StartRecoil -= FixTakeHitEffect;
 	}
 
 	private static bool ShouldActivate() {
-		if (ShouldFunctionHook == null) {
-			return false;
-		}
-
-		foreach (Func<bool> predicate in ShouldFunctionHook.GetInvocationList().Cast<Func<bool>>()) {
+		foreach (Func<bool> predicate in predicates) {
 			if (predicate.Invoke()) {
 				return true;
 			}
@@ -30,19 +32,26 @@ internal sealed class HalveDamage : Module {
 		return false;
 	}
 
-	private int MakeDamageHalved(int damage) =>
+	private static int MakeDamageHalved(int damage) =>
 		ShouldActivate() ? (int) Math.Ceiling(damage / 2f) : damage;
 
-	private IEnumerator FixTakeHitEffect(On.HeroController.orig_StartRecoil orig, HeroController self, CollisionSide impactSide, bool spawnDamageEffect, int damageAmount) =>
+	private static IEnumerator FixTakeHitEffect(On.HeroController.orig_StartRecoil orig, HeroController self, CollisionSide impactSide, bool spawnDamageEffect, int damageAmount) =>
 		orig(self, impactSide, spawnDamageEffect, MakeDamageHalved(damageAmount));
 }
 
 public abstract class HalveDamageConditioned : Module {
-	private protected sealed override void Load() =>
-		HalveDamage.ShouldFunctionHook += Predicate;
+	private Func<bool>? registeredPredicate;
 
-	private protected sealed override void Unload() =>
-		HalveDamage.ShouldFunctionHook -= Predicate;
+	private protected sealed override void Load() {
+		registeredPredicate ??= Predicate;
+		HalveDamage.AddPredicate(registeredPredicate);
+	}
+
+	private protected sealed override void Unload() {
+		if (registeredPredicate != null) {
+			HalveDamage.RemovePredicate(registeredPredicate);
+		}
+	}
 
 	private protected abstract bool Predicate();
 }

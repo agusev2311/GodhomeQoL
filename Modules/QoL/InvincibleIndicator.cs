@@ -6,7 +6,7 @@ namespace GodhomeQoL.Modules.QoL;
 
 public sealed class InvincibleIndicator : Module
 {
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     private const float InvincibleThresholdSeconds = 10f;
     private const string IndicatorText = "Invincible ON";

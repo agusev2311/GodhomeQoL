@@ -138,7 +138,7 @@ public sealed partial class QuickMenu : Module
 
         private void OnQolResetDefaultsClicked()
         {
-            qolMasterEnabled = true;
+            qolMasterEnabled = false;
             qolMasterHasSnapshot = false;
             waitingForFastDreamWarpRebind = false;
             fastDreamWarpPrevKeyRaw = string.Empty;
@@ -146,13 +146,13 @@ public sealed partial class QuickMenu : Module
 
             SetFastDreamWarpEnabled(false);
             FastDreamWarpSettings.Keybinds.Toggle.ClearBindings();
-            SetShortDeathAnimationEnabled(true);
-            SetUnlockAllModesEnabled(true);
-            SetUnlockPantheonsEnabled(true);
-            SetUnlockRadianceEnabled(true);
-            SetUnlockRadiantEnabled(true);
-            SetInvincibleIndicatorEnabled(true);
-            SetScreenShakeEnabled(true);
+            SetShortDeathAnimationEnabled(false);
+            SetUnlockAllModesEnabled(false);
+            SetUnlockPantheonsEnabled(false);
+            SetUnlockRadianceEnabled(false);
+            SetUnlockRadiantEnabled(false);
+            SetInvincibleIndicatorEnabled(false);
+            SetScreenShakeEnabled(false);
             waitingForNailDamageCheckRebind = false;
             nailDamageCheckPrevKey = string.Empty;
             NailDamageCheck.SetKeybind(string.Empty);
@@ -185,15 +185,15 @@ public sealed partial class QuickMenu : Module
 
         private void OnMenuAnimationResetDefaultsClicked()
         {
-            menuAnimMasterEnabled = true;
+            menuAnimMasterEnabled = false;
             menuAnimMasterHasSnapshot = false;
-            SetDoorDefaultBeginEnabled(true);
-            SetFasterLoadsEnabled(true);
-            SetFastMenusEnabled(true);
-            SetFastTextEnabled(true);
-            Modules.QoL.SkipCutscenes.AutoSkipCinematics = true;
-            Modules.QoL.SkipCutscenes.AllowSkippingNonskippable = true;
-            Modules.QoL.SkipCutscenes.SkipCutscenesWithoutPrompt = true;
+            SetDoorDefaultBeginEnabled(false);
+            SetFasterLoadsEnabled(false);
+            SetFastMenusEnabled(false);
+            SetFastTextEnabled(false);
+            Modules.QoL.SkipCutscenes.AutoSkipCinematics = false;
+            Modules.QoL.SkipCutscenes.AllowSkippingNonskippable = false;
+            Modules.QoL.SkipCutscenes.SkipCutscenesWithoutPrompt = false;
             RefreshMenuAnimationUi();
             SaveMasterSettings();
         }
@@ -222,17 +222,17 @@ public sealed partial class QuickMenu : Module
 
         private void OnBossAnimationResetDefaultsClicked()
         {
-            bossAnimMasterEnabled = true;
+            bossAnimMasterEnabled = false;
             bossAnimMasterHasSnapshot = false;
-            Modules.QoL.SkipCutscenes.HallOfGodsStatues = true;
-            Modules.QoL.SkipCutscenes.AbsoluteRadiance = true;
-            Modules.QoL.SkipCutscenes.PantheonVEnding = true;
-            Modules.QoL.SkipCutscenes.PureVesselRoar = true;
-            Modules.QoL.SkipCutscenes.GrimmNightmare = true;
-            Modules.QoL.SkipCutscenes.GreyPrinceZote = true;
-            Modules.QoL.SkipCutscenes.Collector = true;
-            Modules.QoL.SkipCutscenes.SoulMasterPhaseTransitionSkip = true;
-            SetCollectorRoarEnabled(true);
+            Modules.QoL.SkipCutscenes.HallOfGodsStatues = false;
+            Modules.QoL.SkipCutscenes.AbsoluteRadiance = false;
+            Modules.QoL.SkipCutscenes.PantheonVEnding = false;
+            Modules.QoL.SkipCutscenes.PureVesselRoar = false;
+            Modules.QoL.SkipCutscenes.GrimmNightmare = false;
+            Modules.QoL.SkipCutscenes.GreyPrinceZote = false;
+            Modules.QoL.SkipCutscenes.Collector = false;
+            Modules.QoL.SkipCutscenes.SoulMasterPhaseTransitionSkip = false;
+            SetCollectorRoarEnabled(false);
             RefreshBossAnimationUi();
             SaveMasterSettings();
         }

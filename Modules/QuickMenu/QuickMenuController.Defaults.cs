@@ -125,33 +125,35 @@ public sealed partial class QuickMenu : Module
 
             SetModuleEnabled<Modules.QoL.FastDreamWarp>(false);
             FastDreamWarpSettings.Keybinds.Toggle.ClearBindings();
-            SetModuleEnabled<Modules.QoL.ShortDeathAnimation>(true);
-            SetModuleEnabled<Modules.QoL.InvincibleIndicator>(true);
-            SetModuleEnabled<Modules.QoL.ScreenShake>(true);
-            Modules.QoL.SkipCutscenes.HallOfGodsStatues = true;
-            SetModuleEnabled<Modules.QoL.UnlockAllModes>(true);
-            SetModuleEnabled<Modules.QoL.UnlockPantheons>(true);
-            SetModuleEnabled<Modules.QoL.UnlockRadiance>(true);
-            SetModuleEnabled<Modules.QoL.UnlockRadiant>(true);
+            SetModuleEnabled<Modules.QoL.ShortDeathAnimation>(false);
+            SetModuleEnabled<Modules.QoL.InvincibleIndicator>(false);
+            SetModuleEnabled<Modules.QoL.ScreenShake>(false);
+            Modules.QoL.SkipCutscenes.HallOfGodsStatues = false;
+            SetModuleEnabled<Modules.QoL.UnlockAllModes>(false);
+            SetModuleEnabled<Modules.QoL.UnlockPantheons>(false);
+            SetModuleEnabled<Modules.QoL.UnlockRadiance>(false);
+            SetModuleEnabled<Modules.QoL.UnlockRadiant>(false);
 
             GodhomeQoL.GlobalSettings.QuickMenuOpacity = 100;
             GodhomeQoL.GlobalSettings.GearSwitcher ??= new GearSwitcherSettings();
             GodhomeQoL.GlobalSettings.GearSwitcher.Enabled = false;
 
-            SetModuleEnabled<Modules.QoL.DoorDefaultBegin>(true);
-            SetModuleEnabled<Modules.QoL.FasterLoads>(true);
-            SetModuleEnabled<Modules.QoL.FastMenus>(true);
-            SetModuleEnabled<Modules.QoL.FastText>(true);
-            Modules.QoL.SkipCutscenes.AutoSkipCinematics = true;
-            Modules.QoL.SkipCutscenes.AllowSkippingNonskippable = true;
-            Modules.QoL.SkipCutscenes.SkipCutscenesWithoutPrompt = true;
+            SetModuleEnabled<Modules.QoL.DoorDefaultBegin>(false);
+            SetModuleEnabled<Modules.QoL.FasterLoads>(false);
+            SetModuleEnabled<Modules.QoL.FastMenus>(false);
+            SetModuleEnabled<Modules.QoL.FastText>(false);
+            Modules.QoL.SkipCutscenes.AutoSkipCinematics = false;
+            Modules.QoL.SkipCutscenes.AllowSkippingNonskippable = false;
+            Modules.QoL.SkipCutscenes.SkipCutscenesWithoutPrompt = false;
 
-            Modules.QoL.SkipCutscenes.AbsoluteRadiance = true;
-            Modules.QoL.SkipCutscenes.PureVesselRoar = true;
-            Modules.QoL.SkipCutscenes.GrimmNightmare = true;
-            Modules.QoL.SkipCutscenes.GreyPrinceZote = true;
-            Modules.QoL.SkipCutscenes.Collector = true;
-            Modules.QoL.SkipCutscenes.SoulMasterPhaseTransitionSkip = true;
+            Modules.QoL.SkipCutscenes.AbsoluteRadiance = false;
+            Modules.QoL.SkipCutscenes.PureVesselRoar = false;
+            Modules.QoL.SkipCutscenes.GrimmNightmare = false;
+            Modules.QoL.SkipCutscenes.GreyPrinceZote = false;
+            Modules.QoL.SkipCutscenes.Collector = false;
+            Modules.QoL.SkipCutscenes.SoulMasterPhaseTransitionSkip = false;
+            Modules.QoL.SkipCutscenes.PantheonVEnding = false;
+            Modules.Misc.PerformanceProbe.PerformanceProbeEnabled = false;
 
             Modules.BossChallenge.RandomPantheons.Pantheon1Enabled = false;
             Modules.BossChallenge.RandomPantheons.Pantheon2Enabled = false;
@@ -171,11 +173,11 @@ public sealed partial class QuickMenu : Module
 
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossChallengeEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossChallengeHasSnapshot = false;
-            GodhomeQoL.GlobalSettings.QuickMenuMasters.QolEnabled = true;
+            GodhomeQoL.GlobalSettings.QuickMenuMasters.QolEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.QolHasSnapshot = false;
-            GodhomeQoL.GlobalSettings.QuickMenuMasters.MenuAnimEnabled = true;
+            GodhomeQoL.GlobalSettings.QuickMenuMasters.MenuAnimEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.MenuAnimHasSnapshot = false;
-            GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimEnabled = true;
+            GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimEnabled = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimHasSnapshot = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.BossAnimSavedHallOfGods = false;
             GodhomeQoL.GlobalSettings.QuickMenuMasters.RandomPantheonsEnabled = false;

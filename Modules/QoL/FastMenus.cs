@@ -23,7 +23,7 @@ public sealed class FastMenus : Module
 
     private readonly List<ILHook> hooks = new List<ILHook>();
 
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     public override ToggleableLevel ToggleableLevel => ToggleableLevel.ChangeScene;
 

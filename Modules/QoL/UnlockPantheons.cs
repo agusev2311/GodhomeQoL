@@ -10,7 +10,7 @@ public sealed class UnlockPantheons : Module
         ("Secret Mask", "Mask above spa")
     };
 
-    public override bool DefaultEnabled => true;
+    public override bool DefaultEnabled => false;
 
     public override ToggleableLevel ToggleableLevel => ToggleableLevel.ReloadSave;
 

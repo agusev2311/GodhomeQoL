@@ -1,7 +1,7 @@
 ﻿namespace GodhomeQoL.Modules.QoL;
 
 public sealed class UnlockAllModes : Module {
-	public override bool DefaultEnabled => true;
+	public override bool DefaultEnabled => false;
 
 	private protected override void Load() {
 		Platform.ISharedData data = Platform.Current.EncryptedSharedData;

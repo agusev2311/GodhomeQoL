@@ -10,40 +10,40 @@ namespace GodhomeQoL.Modules.QoL
         #region Settings
 
         [GlobalSetting]
-        public static bool AbsoluteRadiance = true;
+        public static bool AbsoluteRadiance = false;
 
         [GlobalSetting]
-        public static bool HallOfGodsStatues = true;
+        public static bool HallOfGodsStatues = false;
 
         [GlobalSetting]
-        public static bool PureVesselRoar = true;
+        public static bool PureVesselRoar = false;
 
         [GlobalSetting]
-        public static bool GrimmNightmare = true;
+        public static bool GrimmNightmare = false;
 
         [GlobalSetting]
-        public static bool GreyPrinceZote = true;
+        public static bool GreyPrinceZote = false;
 
         [GlobalSetting]
-        public static bool Collector = true;
+        public static bool Collector = false;
 
         [GlobalSetting]
-        public static bool AutoSkipCinematics = true;
+        public static bool AutoSkipCinematics = false;
 
         [GlobalSetting]
-        public static bool AllowSkippingNonskippable = true;
+        public static bool AllowSkippingNonskippable = false;
 
         [GlobalSetting]
-        public static bool SkipCutscenesWithoutPrompt = true;
+        public static bool SkipCutscenesWithoutPrompt = false;
 
         [GlobalSetting]
-        public static bool SoulMasterPhaseTransitionSkip = true;
+        public static bool SoulMasterPhaseTransitionSkip = false;
 
         [GlobalSetting]
-        public static bool PantheonVEnding = true;
+        public static bool PantheonVEnding = false;
 
         #endregion
-        public override bool DefaultEnabled => true;
+        public override bool DefaultEnabled => false;
         public override bool Hidden => true;
         public override bool AlwaysEnabled => true;
 

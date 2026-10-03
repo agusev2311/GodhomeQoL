@@ -65,4 +65,7 @@ public sealed class GlobalSettings : SettingBase<GlobalSettingAttribute>
     public Dictionary<string, string> QuickMenuOverlayHotkeys { get; set; } = new();
 
     public string NailDamageCheckKeybind { get; set; } = string.Empty;
+
+    // Bumped when every module must be reset to disabled once (opt-in defaults migration)
+    public int DefaultsResetVersion { get; set; }
 }

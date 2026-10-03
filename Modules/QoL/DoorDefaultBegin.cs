@@ -1,7 +1,7 @@
 ﻿namespace GodhomeQoL.Modules.QoL;
 
 public sealed class DoorDefaultBegin : Module {
-	public override bool DefaultEnabled => true;
+	public override bool DefaultEnabled => false;
 
 	private protected override void Load() => On.BossDoorChallengeUI.ShowSequence += OnShowSequence;
 
