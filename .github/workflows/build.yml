@@ -9,7 +9,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Windows: setup-hk downloads the platform's game assemblies, and the mod uses
+    # Windows-only types (GOG/XInput) that the Linux build of Assembly-CSharp lacks
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
