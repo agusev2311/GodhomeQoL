@@ -25,9 +25,9 @@
     <Product>GodhomeQoL</Product>
     <Description>A Hollow Knight Mod</Description>
     <Copyright>Copyright c  2025</Copyright>
-    <AssemblyVersion>1.0.1.4</AssemblyVersion>
-    <FileVersion>1.0.1.4</FileVersion>
-    <InformationalVersion>1.0.1.4</InformationalVersion>
+    <AssemblyVersion>1.0.1.5</AssemblyVersion>
+    <FileVersion>1.0.1.5</FileVersion>
+    <InformationalVersion>1.0.1.5-optin</InformationalVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
